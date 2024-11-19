@@ -1,7 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
 
-const Buku = () => {
+const Buku = ({ books }) => {
     return (
         <AuthenticatedLayout
             header={
@@ -11,6 +11,68 @@ const Buku = () => {
             }
         >
             <Head title="Buku" />
+
+            <button
+                type="button"
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-8 m-8"
+            >
+                Tambah data buku
+            </button>
+            <div className="relative overflow-x-auto shadow-md sm:rounded-lg mx-8 my-5">
+                <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                    <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" className="px-6 py-3">
+                                Title
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Genre
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Author
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                Image
+                            </th>
+                            <th scope="col" className="px-6 py-3">
+                                <span className="sr-only">Edit</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {books.map((book) => (
+                            <tr
+                                key={book.id}
+                                className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                            >
+                                <th
+                                    scope="row"
+                                    className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+                                >
+                                    {book.title}
+                                </th>
+                                <td className="px-6 py-4">{book.genre}</td>
+                                <td className="px-6 py-4">{book.author}</td>
+                                <td className="px-6 py-4">
+                                    <img
+                                        src={`${book.image}`}
+                                        alt={book.title}
+                                        className="w-14 h-14 object-cover"
+                                    />
+                                </td>
+                                <td className="px-6 py-4 text-right">
+                                    <a
+                                        href="#"
+                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                    >
+                                        View
+                                    </a>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </AuthenticatedLayout>
     );
 };

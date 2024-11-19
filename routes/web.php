@@ -22,6 +22,7 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get("/buku", [BukuController::class, 'index'])->name("buku.index");
+    Route::post("/buku/store", [BukuController::class, 'store'])->name("buku.store");
 
     // update profile
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
