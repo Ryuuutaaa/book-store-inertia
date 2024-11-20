@@ -14,10 +14,8 @@ class BukuController extends Controller
      */
     public function index()
     {
-        // Ambil data buku dari database
         $books = Buku::all();
 
-        // Kirim data ke komponen React menggunakan Inertia
         return Inertia::render('Buku/index', [
             'books' => $books,
         ]);
@@ -28,7 +26,7 @@ class BukuController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Buku/Create');
     }
 
     /**
@@ -36,27 +34,25 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        $validated = $request->validate([
+        $request->validate([
             'title' => 'required|string|max:255',
             'genre' => 'required|string|max:255',
             'author' => 'required|string|max:255',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('images', 'public');
+        $imagePath = $request->file('image')->store('public');
+        $imageUrl = asset('/storage/' . basename($imagePath));
 
-            $imagePath = '/storage/' . $imagePath;
-        }
 
         Buku::create([
-            'title' => $validated['title'],
-            'genre' => $validated['genre'],
-            'author' => $validated['author'],
-            'image' => $imagePath,
+            'title' => $request->title,
+            'genre' => $request->genre,
+            'author' => $request->author,
+            'image' => $imageUrl,
         ]);
 
-        return Redirect::route('buku.index')->with('success', 'Buku berhasil ditambahkan!');
+        return Redirect::route('buku.root');
     }
 
 
@@ -65,7 +61,11 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $book = Buku::findOrFail($id);
+
+        return Inertia::render('Buku/Show', [
+            'book' => $book,
+        ]);
     }
 
     /**

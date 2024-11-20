@@ -21,10 +21,14 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
 
-    Route::get("/buku", [BukuController::class, 'index'])->name("buku.index");
+    // buku
+    Route::get("/buku", [BukuController::class, 'index'])->name("buku.root");
+    Route::get("/buku/create", [BukuController::class, 'create'])->name("buku.create");
     Route::post("/buku/store", [BukuController::class, 'store'])->name("buku.store");
+    Route::get("/buku/{id}", [BukuController::class, 'show'])->name("buku.show");
 
-    // update profile
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

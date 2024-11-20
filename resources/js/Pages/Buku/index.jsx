@@ -1,7 +1,13 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
+import { useState } from "react";
 
 const Buku = ({ books }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const handleModalOpen = () => setIsModalOpen(true);
+    const handleModalClose = () => setIsModalOpen(false);
+
     return (
         <AuthenticatedLayout
             header={
@@ -12,12 +18,15 @@ const Buku = ({ books }) => {
         >
             <Head title="Buku" />
 
-            <button
-                type="button"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-8 m-8"
-            >
-                Tambah data buku
-            </button>
+            <a href={route("buku.create")}>
+                <button
+                    onClick={handleModalOpen}
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-8 my-10"
+                >
+                    Tambah Data Buku
+                </button>
+            </a>
+
             <div className="relative overflow-x-auto shadow-md sm:rounded-lg mx-8 my-5">
                 <table className="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -57,12 +66,12 @@ const Buku = ({ books }) => {
                                     <img
                                         src={`${book.image}`}
                                         alt={book.title}
-                                        className="w-14 h-14 object-cover"
+                                        className="w-16 h-16 object-cover"
                                     />
                                 </td>
                                 <td className="px-6 py-4 text-right">
                                     <a
-                                        href="#"
+                                        href={route("buku.show", book.id)}
                                         className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                                     >
                                         View

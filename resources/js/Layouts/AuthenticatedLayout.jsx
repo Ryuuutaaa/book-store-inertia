@@ -31,10 +31,10 @@ export default function AuthenticatedLayout({ header, children }) {
                                     Dashboard
                                 </NavLink>
                                 <NavLink
-                                    href={route("buku.index")}
-                                    active={route().current("buku.index")}
+                                    href={route("buku.root")}
+                                    active={route().current("buku.root")}
                                 >
-                                    Buku
+                                    List Buku
                                 </NavLink>
                             </div>
                         </div>
