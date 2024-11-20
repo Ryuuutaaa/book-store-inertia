@@ -63,7 +63,7 @@ const Buku = ({ books }) => {
                                 <td className="px-6 py-4 text-right">
                                     <a
                                         href={route("buku.show", book.id)}
-                                        className="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                                        className="px-3 py-1 text-sm font-medium text-white bg-green-600 rounded-md shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400"
                                     >
                                         View
                                     </a>
