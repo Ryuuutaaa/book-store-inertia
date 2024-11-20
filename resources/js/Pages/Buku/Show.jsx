@@ -1,7 +1,17 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { Head } from "@inertiajs/react";
+import { Head, useForm } from "@inertiajs/react";
 
 const Show = ({ book }) => {
+    const { delete: destroy } = useForm();
+
+    const handleDelete = () => {
+        if (confirm("Apakah Anda yakin ingin menghapus buku ini?")) {
+            destroy(route("buku.destroy", book.id), {
+                preserveScroll: true,
+            });
+        }
+    };
+
     return (
         <AuthenticatedLayout
             header={
@@ -29,6 +39,21 @@ const Show = ({ book }) => {
                             alt={book.title}
                             className="w-48 h-48 object-cover"
                         />
+                    </div>
+
+                    <div className="flex gap-4 mt-6">
+                        <a
+                            href={route("buku.edit", book.id)}
+                            className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-yellow-400 dark:hover:bg-yellow-500 focus:outline-none"
+                        >
+                            Update
+                        </a>
+                        <button
+                            onClick={handleDelete}
+                            className="text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-red-500 dark:hover:bg-red-600 focus:outline-none"
+                        >
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>

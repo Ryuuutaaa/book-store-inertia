@@ -1,13 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { Head } from "@inertiajs/react";
-import { useState } from "react";
 
 const Buku = ({ books }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const handleModalOpen = () => setIsModalOpen(true);
-    const handleModalClose = () => setIsModalOpen(false);
-
     return (
         <AuthenticatedLayout
             header={
@@ -19,10 +13,7 @@ const Buku = ({ books }) => {
             <Head title="Buku" />
 
             <a href={route("buku.create")}>
-                <button
-                    onClick={handleModalOpen}
-                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-8 my-10"
-                >
+                <button className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 mx-8 my-10">
                     Tambah Data Buku
                 </button>
             </a>

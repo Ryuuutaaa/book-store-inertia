@@ -73,7 +73,11 @@ class BukuController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $book = Buku::findOrFail($id);
+
+        return Inertia::render('Buku/Edit', [
+            'book' => $book,
+        ]);
     }
 
     /**
@@ -81,14 +85,38 @@ class BukuController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $book = Buku::findOrFail($id);
+
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'genre' => 'required|string|max:255',
+            'author' => 'required|string|max:255',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('public');
+            $book->image = asset('/storage/' . basename($imagePath));
+        }
+
+        $book->update([
+            'title' => $request->title,
+            'genre' => $request->genre,
+            'author' => $request->author,
+        ]);
+
+        return Redirect::route('buku.root');
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $book = Buku::findOrFail($id);
+        $book->delete();
+
+        return Redirect::route('buku.root');
     }
 }
